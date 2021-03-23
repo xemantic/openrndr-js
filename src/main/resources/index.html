@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OPENRNDR + Kotlin running in JavaScript</title>
+    <script src="openrndr-js.js"></script>
+    <style>
+        html {
+            /* basic fluid typography */
+            font-size: calc(16px + 1vw)
+        }
+        header {
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header h1 {
+            margin-top: 2em;
+            font-size: 2em;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+               text-shadow: 0 0 .2em yellow;
+            }
+            to {
+                text-shadow: 0 0 .4em yellow;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>OPENRNDR + Kotlin running in JavaScript</h1>
+</header>
+</body>
+</html>
