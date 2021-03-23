@@ -5,7 +5,7 @@
 ## How to use it?
 
 * Install [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/#section=linux)
-* Clone this repo: https://github.com/morisil/openrndr
+* Clone this forked OPENRNDR repo: https://github.com/morisil/openrndr
 * Check out `openrndrMathAsKotlinMultiplatformLib` branch
 * Do `$ ./gradlew build publishToMavenLocal`
 * Clone this project
