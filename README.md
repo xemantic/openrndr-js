@@ -29,6 +29,7 @@ For now you have to do:
 $ git clone git@github.com:openrndr/openrndr.git
 $ cd openrndr
 $ ./gradlew publishToMavenLocal -Prelease.version=0.4.0-SNAPSHOT
+$ cd ..
 ```
 
 It will build the latest OPENRNDR version with Kotlin JS support for
