@@ -26,9 +26,8 @@ be good enough.
 For now you have to do:
 
 ```shell
-$ git clone git@github.com:morisil/openrndr.git
+$ git clone git@github.com:openrndr/openrndr.git
 $ cd openrndr
-$ git checkout openrndrColorAsKotlinMultiplatform
 $ ./gradlew publishToMavenLocal -Prelease.version=0.4.0-SNAPSHOT
 ```
 
