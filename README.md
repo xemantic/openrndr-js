@@ -69,7 +69,7 @@ the outcome.
 If you used this repository as a template, you might consider:
 
  * Changing `rootProject.name` in [settings.gradle.kts](settings.gradle.kts) to the name of your repository.
-   * :warning: the change of generated script name in []src/main/resources/index.html](src/main/resources/index.html)
+   * :warning: the change of generated script name in [src/main/resources/index.html](src/main/resources/index.html)
      should follow.
  * Changing `group` in [build.gradle.ks](build.gradle.kts) to something reflecting your organization
  * You can uncomment additional futures you want to use in [build.gradle.ks](build.gradle.kts)
