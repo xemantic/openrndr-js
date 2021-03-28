@@ -1,103 +1,84 @@
-import kotlinx.browser.document
-import kotlinx.browser.window
 import org.openrndr.math.mod
-import org.w3c.dom.CanvasRenderingContext2D
-import org.w3c.dom.HTMLCanvasElement
-import kotlin.math.floor
 import kotlin.math.sin
 
+// I put lots of comments in case you are new to Kotlin, mostly referring
+// typical JavaScript idioms.
+// Note that Kotlin does not require semicolons - no ; anymore at the end of line
+
+/**
+ * Returns sine wave always normalized to 0..1 range.
+ *
+ * @param phase the phase of the wave, usually used with something related
+ *              time or space.
+ */
 fun wave(phase: Double) = (sin(phase) + 1.0) / 2.0
 
-fun oscillate(offset: Double, range: Int) = wave(time * offset) * range
+// In Kotlin you can define new functions like the wave above, without return
+// statement. It's very convenient for functional programming style. The
+// documentation is optional, however if kept, it will be automatically
+// translated to documentation of your project, which might be important
+// if it's a library you are going to reuse or offer to others.
 
+// Note that we have to provide the type of phase parameter. Double is a default
+// Kotlin type for expressing floating point number and it follows the parameter
+// name instead of preceding it, like it is in Java and C derived syntax.
+
+// If you are familiar with JS arrow functions, the wave function above
+// would be an equivalent here, except the actual lambda expression in Kotlin would
+// be written like this:
+
+val wave2 = { phase: Double -> (sin(phase) + 1.0) / 2.0 }
+
+// Not necessary here. It has more use when lambda is supplied as an argument
+// which happens quite often in Kotlin. The idiom you might know from JS:
+//
+// collection.forEach(element => { doSomething(element) })
+//
+// In Kotlin would become:
+//
+// collection.forEach({ element -> doSomething(element) })
+//
+// But there is more syntactic sugar. If it is the last parameter of the
+// function, then you can skip brackets:
+//
+// collection.forEach { element -> doSomething(element) }
+//
+// Or even go for more Kotlin idiomatic way:
+//
+// collection.forEach { doSomething(it) }
+//
+// "it" resolves to the current lambda argument
+
+
+/**
+ * Sinusoidal oscillation depending on current time.
+ *
+ * @param tempo the tempo of oscillation.
+ * @param maxValue the maximal value to oscillate to.
+ */
+fun oscillate(tempo: Double, maxValue: Double) = wave(time * tempo) * maxValue
+
+// it's possible to overload the function like this:
+fun oscillate(tempo: Double, maxValue: Int) = oscillate(tempo, maxValue.toDouble())
+
+// here is a function enclosing the code which will be run once per animation frame
+/**
+ * Draws on the screen.
+ * Note: this function is being called from the [Painter] defined in Engine.kt file.
+ */
 fun draw() {
-    // drawer is an instance of CanvasRenderingContext2D
-    with (drawer) {
+    // Here we are using the pure JS canvas API:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+    // normally in JS you would call canvas.something(), with Kotlin's "with"
+    // the "canvas." can be skipped completely
+    with (canvas) {
         beginPath()
         moveTo(oscillate(1.0, width), oscillate(1.1, height))
         lineWidth = 2.0
+        // see comments in Colors.kt to check in details what's happening here
         strokeStyle = spectralZucconi6(mod(wave(time), 1.0)).toRgbaColor(.2)
         lineTo(oscillate(1.2, width), oscillate(1.3, height))
         stroke()
         closePath()
     }
-}
-
-
-// The code below is pretty standard, so I guess in the future it will be a common openrndr-js lib
-// here it is just abstracting canvas initialization, as if it is also happening in p5.js
-
-
-
-fun main() {
-    window.onload = {
-        painter = Painter { draw() }
-        true
-    }
-}
-
-
-lateinit var painter: Painter
-val drawer: CanvasRenderingContext2D get() = painter.drawer
-
-val time: Double get() = painter.time
-val width: Int get() = painter.width
-val height: Int get() = painter.height
-
-
-class Painter(val backgroundFillStyle: String = "black", private val drawFunction: () -> Unit) {
-
-    val canvas: HTMLCanvasElement = document.body?.appendChild(
-        document.createElement("canvas")
-    ) as HTMLCanvasElement
-
-    val drawer = canvas.getContext("2d") as CanvasRenderingContext2D
-
-    init {
-        with(canvas.style) {
-            position = "fixed"
-            width = "100vw"
-            height = "100vh"
-            top = "0"
-            left = "0"
-            zIndex = "-10"
-        }
-        window.requestAnimationFrame { render() }
-    }
-
-    var time = 0.0
-        private set
-    var width: Int = 0
-        private set
-    var height: Int = 0
-        private set
-
-    private var cssWidth: Int = 0
-    private var cssHeight: Int = 0
-
-    private fun render() {
-        window.requestAnimationFrame { render() }
-        if (maybeResize()) {
-            resize()
-        }
-        time = window.performance.now() / 1000
-        drawFunction()
-    }
-
-    private fun maybeResize() =
-        (cssWidth != canvas.clientWidth) || (cssHeight != canvas.clientHeight)
-
-    private fun resize() {
-        println("resize")
-        val pixelRatio = window.devicePixelRatio
-        cssWidth   = canvas.clientWidth
-        cssHeight  = canvas.clientHeight
-        width      = floor(cssWidth  * pixelRatio).toInt()
-        height     = floor(cssHeight * pixelRatio).toInt()
-        canvas.width = width
-        canvas.height = height
-        drawer.fillStyle = backgroundFillStyle
-        drawer.fillRect(0.0, 0.0, width.toDouble(), height.toDouble())
-    }
-
 }

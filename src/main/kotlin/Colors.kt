@@ -3,6 +3,9 @@ import org.openrndr.math.Vector4
 import org.openrndr.math.max
 import org.openrndr.math.min
 
+// Note: also take a look what's possible with `openrndr-color`
+// https://guide.openrndr.org/#/04_Drawing_basics/C03_Color
+
 // We are going to represent color as Vector3 from openrndr-math, but we need to translate it
 // to HTML/CSS world
 
