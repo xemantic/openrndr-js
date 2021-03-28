@@ -96,6 +96,8 @@ class Painter(
     height = floor(cssHeight * pixelRatio).toInt()
     canvas.width = width
     canvas.height = height
+    canvas2d.fillStyle = backgroundFillStyle
+    canvas2d.fillRect(0.0, 0.0, width.toDouble(), height.toDouble())
   }
 
 }
