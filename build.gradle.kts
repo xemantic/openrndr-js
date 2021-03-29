@@ -5,7 +5,7 @@ plugins {
 group = "org.openrndr.demo"                // you can change it to reflect your organization and project
 version = "1.0-SNAPSHOT"
 
-val openrndrVersion = "0.4.0-SNAPSHOT"     // It's locally built SNAPSHOT for now, see the README.md, will be replaced with the official version soon
+val openrndrVersion = "0.3.47-rc.5"     // It's locally built SNAPSHOT for now, see the README.md, will be replaced with the official version soon
 
 repositories {                             // where all the software libs are coming from - "NPM of Java/Kotlin world"
     mavenLocal()                           // needed for now to add locally built openrndr-math, will be gone soon
@@ -13,7 +13,7 @@ repositories {                             // where all the software libs are co
     jcenter()                              // as jcenter will is phased out this year
     maven(url = "https://dl.bintray.com/openrndr/openrndr") // for now we might need some snapshot/RC versions from here
     // uncomment the next one if you want to use kotlinx.html, see https://github.com/Kotlin/kotlinx.html
-    maven { url = uri("https://dl.bintray.com/kotlin/kotlinx") }
+    //maven { url = uri("https://dl.bintray.com/kotlin/kotlinx") }
 }
 
 /*
@@ -26,8 +26,8 @@ repositories {                             // where all the software libs are co
 
  */
 dependencies {
-    implementation("org.openrndr:openrndr-math:$openrndrVersion") // It's locally built SNAPSHOT for now, see README, will be official version soon
-    implementation("org.openrndr:openrndr-color:$openrndrVersion")
+    implementation("org.openrndr:openrndr-math-js:$openrndrVersion") // It's locally built SNAPSHOT for now, see README, will be official version soon
+    implementation("org.openrndr:openrndr-color-js:$openrndrVersion")
 
     // uncomment the next one if you want to use kotlinx.html, see https://github.com/Kotlin/kotlinx.html
     //implementation("org.jetbrains.kotlinx:kotlinx-html:0.7.2")

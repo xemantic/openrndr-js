@@ -20,34 +20,15 @@ Open source [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/dow
 be good enough.
 
 
-### Build modified OPENRNDR (won't be needed soon)
+### Use this project as a template
 
-:information_source: All these changes will be incorporated into official OPENRNDR releases soon.
-For now you have to do:
+Just click the green "Use this template" button above and then clone your fresh repository.
 
-```shell
-$ git clone git@github.com:openrndr/openrndr.git
-$ cd openrndr
-$ ./gradlew publishToMavenLocal -Prelease.version=0.4.0-SNAPSHOT
-$ cd ..
-```
-
-It will build the latest OPENRNDR version with Kotlin JS support for
-`openrndr-math` and `openrndr-color` modules.
-
-
-### Clone this project or use it as a template
-
-```shell
-$ git clone git@github.com:xemantic/openrndr-js.git
-$ cd openrndr-js
-```
-
-or the same for your repository created out of this project
 
 ### Start the webdev server
 
 ```shell
+$ cd your-repository-name
 $ ./gradlew run --continous
 ```
 
